@@ -3,9 +3,9 @@
   <div id="app">
     <div id="content">
       <table>
-        <col span="20%">
-        <col span="60%">
-        <col span="20%">
+        <col width="20%">
+        <col width="60%">
+        <col width="20%">
         <tr>
           <td id="left-toolbar">
             <ul>
@@ -43,7 +43,6 @@
               </li>
             </ul>
           </td>
-
         </tr>
 
       </table>

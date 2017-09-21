@@ -1,10 +1,13 @@
 <template>
-<h1>globalHistory</h1>
+<h1>{{title}}</h1>
 </template>
 
 <script>
 export default {
-  data () {},
+  data () {return {
+    title: "globalHistory"
+    };
+  },
   methods: {}
 
 }

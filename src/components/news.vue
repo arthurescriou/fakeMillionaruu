@@ -1,10 +1,13 @@
 <template>
-<h1>news</h1>
+<h1>{{title}}</h1>
 </template>
 
 <script>
 export default {
-  data () {},
+  data () {return {
+    title: "news"
+    };
+  },
   methods: {}
 
 }

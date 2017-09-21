@@ -1,10 +1,13 @@
 <template>
-<h1>orderForm</h1>
+<h1>{{title}}</h1>
 </template>
 
 <script>
 export default {
-  data () {},
+  data () {return {
+    title: "orderForm"
+    };
+  },
   methods: {}
 
 }

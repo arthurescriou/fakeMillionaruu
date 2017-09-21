@@ -1,10 +1,13 @@
 <template>
-<h1>lastTrade</h1>
+<h1>{{title}}</h1>
 </template>
 
 <script>
 export default {
-  data () {},
+  data () {return {
+    title: "lastTrade"
+    };
+  },
   methods: {}
 
 }

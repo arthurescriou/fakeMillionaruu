@@ -6,7 +6,11 @@ Vue.use(Vuex);
 const state = {
     count: 0,
     page: 'home',
-    connected: false
+    connected: false,
+    userName: require('faker').name.findName(),
+    mail: require('faker').internet.email(),
+    colorprim: "deep-purple darken-4",
+    colorsec:"deep-purple lighten-4"
 
 };
 
@@ -22,6 +26,12 @@ const mutations = {
     },
     pub:(state) => {
       state.page = 'pub';
+    },
+    connexion: (state) => {
+      state.connected = true;
+    },
+    deconnexion: (state) => {
+      state.connected = false;
     }
 };
 
