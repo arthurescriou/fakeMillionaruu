@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import Faker from 'faker';
 
 Vue.use(Vuex);
 
@@ -7,10 +8,24 @@ const state = {
     count: 0,
     page: 'home',
     connected: false,
-    userName: require('faker').name.findName(),
-    mail: require('faker').internet.email(),
-    colorprim: "deep-purple darken-4",
-    colorsec:"deep-purple lighten-4"
+    login: {
+      userName: Faker.name.findName(),
+      mail: Faker.internet.email(),
+      image: Faker.random.image()
+    },
+    color: {
+      colorprim: "indigo lighten-2",
+      colorsec:"deep-purple lighten-4"
+    },
+    colorprim: "indigo lighten-2",
+    colorsec:"deep-purple lighten-4",
+    ajax: {
+      inscription: {
+        username: "",
+        password: "",
+        mail:""
+      }
+    }
 
 };
 

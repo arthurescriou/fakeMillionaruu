@@ -1,8 +1,8 @@
 <template>
   <div id="contain-connexion">
-    <div class="card" v-bind:class="this.$store.state.colorprim">
+    <div class="card" v-bind:class="this.$store.state.color.colorprim">
       <div v-if="inscription">
-        <h5>Inscription</h5>
+        <h5 v-bind:class="this.$store.state.color.colorsec">Inscription</h5>
 
       <div class="input-field">
         <input v-model="compte" placeholder="user name" id="userName" type="text" v-bind:class="validUserName">
@@ -24,7 +24,7 @@
         <label for="userName" v-bind:data-error="errorPass"></label>
       </div>
 
-        <a style="margin :20px;" v-bind:class="this.$store.state.colorsec"
+        <a style="margin :20px;" v-bind:class="this.$store.state.color.colorsec"
         class="waves-effect waves-light btn" @click="submitInscription()">{{signin}}</a>
         <div class="green darken-1"> {{succesInscription}} </div>
       </div>
@@ -38,21 +38,21 @@
           <div class="input-field">
           <input v-model="password" placeholder="password" id="password" type="password" class="validate">
         </div>
-          <a style="margin :20px;" v-bind:class="this.$store.state.colorsec"
+          <a style="margin :20px;" v-bind:class="this.$store.state.color.colorsec"
           class="waves-effect waves-light btn" @click="submitForm()">connect</a>
 
-          <a style="margin :20px;" v-bind:class="this.$store.state.colorsec"
+          <a style="margin :20px;" v-bind:class="this.$store.state.color.colorsec"
           class="waves-effect waves-light btn" @click="inscr()">sign in</a>
 
 
         </div>
         <div v-else>
           <div class="card-content">
-            <img style="width : 80%;" class="responsive-img circle" v-bind:src="require('faker').random.image()">
-            Signed in as
-              <p><b>{{this.$store.state.userName}}</b><br/>
-                <i>{{this.$store.state.mail}}</i></p>
-                <a style="margin-top :20px" v-bind:class="this.$store.state.colorsec"
+            <img style="width : 80%;" class="responsive-img circle" v-bind:src="$store.state.color.image">
+            <br/>Signed in as
+              <p><b>{{this.$store.state.login.userName}}</b><br/>
+                <i>{{this.$store.state.login.mail}}</i></p>
+                <a style="margin-top :20px" v-bind:class="this.$store.state.color.colorsec"
                 class="waves-effect waves-light btn" @click="deconnect()">deconnect</a>
               </div>
             </div>
@@ -132,10 +132,11 @@
           this.errorPass = "not the same password"
         }
 
-        this.succesInscription = "Congratulation to your inscription";
-        this.signin="back";
-        this.inscriptionDone = true;
-
+        if(PasswordValid&&emailValid&&retourUserName){
+          this.succesInscription = "Congratulation to your inscription";
+          this.signin="back";
+          this.inscriptionDone = true;
+      }
 
       }
     },

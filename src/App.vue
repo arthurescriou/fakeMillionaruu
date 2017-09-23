@@ -21,8 +21,9 @@
             </ul>
           </td>
           <td id="main">
+
             <ul>
-              <li>
+              <li>{{pasta}}
                 <appChart></appChart>
               </li>
               <li>
@@ -77,6 +78,7 @@
         bttn: 'Je suis un bouton',
         showing: false,
         namePage: this.$store.state.page,
+        pasta: this.$store.state.ajax.tamer
       };
     },
     methods: {
