@@ -1,2 +1,2 @@
 # fakeMillionaruu
-losts of charts
+lots of charts

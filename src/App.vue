@@ -1,135 +1,75 @@
 <template>
+<v-app id="app" v-bind:color="$store.state.color.third">
+  <main>
+    <v-container>
 
-  <div id="app">
-    <div id="content">
-      <table>
-        <col width="20%">
-        <col width="60%">
-        <col width="20%">
-        <tr>
-          <td id="left-toolbar">
-            <ul>
-              <li>
-                <appForm></appForm>
-              </li>
-              <li>
-                <appWallet></appWallet>
-              </li>
-              <li>
-                <appLastTrade></appLastTrade>
-              </li>
-            </ul>
-          </td>
-          <td id="main">
+      <v-layout row wrap>
 
-            <ul>
-              <li>{{pasta}}
-                <appChart></appChart>
-              </li>
-              <li>
-                <appOrderForm></appOrderForm>
-              </li>
-              <li>
-                <appGlobalHistory></appGlobalHistory>
-              </li>
-            </ul>
-          </td>
-          <td id="right-toolbar">
-            <ul>
-              <li>
-                <appNews></appNews>
-              </li>
-              <li>
-                <appTrollBox></appTrollBox>
-              </li>
-            </ul>
-          </td>
-        </tr>
+        <v-flex lg2 xl2>
+          <v-navigation-drawer permanent light>
+            <v-toolbar flat>
+              <v-list>
+                <Left></Left>
+              </v-list>
+            </v-toolbar>
+          </v-navigation-drawer>
 
-      </table>
-  </div>
-</div>
+        </v-flex>
 
+        <v-flex lg8 xl8>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          <Chart></Chart>
+          <Order></Order>
+          <Story></Story>
+        </v-flex>
 
+        <v-flex lg2 xl2>
+          <v-navigation-drawer permanent light right>
+            <v-toolbar flat>
+              <v-list>
+                <Right></Right>
+              </v-list>
+            </v-toolbar>
+          </v-navigation-drawer>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </main>
+  <!-- <v-footer v-bind:class="$store.state.color.prim" dark>
+        <span>© 2017 - Argent</span>
+      </v-footer> -->
+</v-app>
 </template>
 
+<script type="text/babel">
+import Store from './store/store.js';
 
-<script>
+import Left from './toolbar/leftToolBar.vue';
+import Order from './components/TradeOrder.vue';
+import Chart from './components/Charts.vue';
+import Right from './toolbar/rightToolBar.vue';
+import Story from './components/TradeHistory.vue';
 
-  import news from './components/news.vue'
-  import form from './components/connexion.vue'
-  import chart from './components/chart.vue'
-  import wallet from './components/wallet.vue'
-  import trollBox from './components/trollBox.vue'
-  import orderForm from './components/orderForm.vue'
-  import bookOrder from './components/bookOrder.vue'
-  import lastTrade from './components/lastTrade.vue'
-  import globalHistory from './components/globalHistory.vue'
+export default {
+  store: Store,
+  data() {
+    return {};
+  },
+  methods: {
 
-  import Store from './store/store.js'
-
-
-  export default {
-    store: Store,
-    name: 'app',
-    data () {
-      return {
-        msg: 'Je suis un message',
-        bttn: 'Je suis un bouton',
-        showing: false,
-        namePage: this.$store.state.page,
-        pasta: this.$store.state.ajax.tamer
-      };
-    },
-    methods: {
-      state(){
-        return this.$store.state.count;
-      }
-    },
-    components: {
-      appNews : news,
-      appForm : form,
-      appChart : chart,
-      appWallet : wallet,
-      appTrollBox : trollBox,
-      appOrderForm : orderForm,
-      appBookOrder : bookOrder,
-      appLastTrade : lastTrade,
-      appGlobalHistory : globalHistory
-
-    }
+  },
+  components: {
+    Left: Left,
+    Order: Order,
+    Right: Right,
+    Chart: Chart,
+    Story: Story
   }
-
-
-
-
+};
 </script>
 
-
-<style>
-
-.h1{
-  text-decoration-style: double;
-}
-
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #000000;
-  background-color: #ffffff;
-
-}
-#left-toolbar{
-  background-color: #ff0000;
-}
-#right-toolbar{
-  background-color: #00ff00;
-}
-#main{
-  background-color: #0000ff;
-}
-
-
+<style lang="stylus">
+    @import '../node_modules/vuetify/src/stylus/main';
+    @import 'css/main.css';
 </style>
