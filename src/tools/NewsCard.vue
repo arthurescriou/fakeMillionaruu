@@ -1,6 +1,6 @@
 <template>
-<v-container>
-  <v-layout>
+<v-container wrap>
+  <v-layout >
     <v-flex>
       <v-card v-bind:class="$store.state.color.prim">
         <v-card-media class="white--text" height="50px" v-bind:src="src">
@@ -15,7 +15,7 @@
           </div>
         </v-card-title>
         <v-card-actions>
-          <v-btn flat v-bind:class="$store.state.color.sec" v-bind:href="link">Link</v-btn>
+          <v-btn flat v-bind:class="$store.state.color.sec" :href="link" target="_blank">Link</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -26,7 +26,11 @@
 
 <script>
 export default {
-  props: ['src', 'title', 'link']
+  props: ['src', 'title', 'link'],
+  methods: {
+    externLink() {
+    }
+  }
 }
 </script>
 

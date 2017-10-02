@@ -11,13 +11,26 @@ const state = {
   profil: {
     userName: Faker.internet.userName(),
     name: Faker.name.findName(),
-    image: ""/*Faker.image.image()*/,
+    image: "" /*Faker.image.image()*/ ,
     connected: false,
     inscr: false,
-    wallet: {
-      btc: 12,
-      eth: 123
-    }
+    wallet: [{
+        name: "BTC",
+        value: 12.0125,
+        logo: "/src/assets/images/BTC.png"
+      },
+      {
+        name: "ETH",
+        value: 1.46,
+        logo: "/src/assets/images/ETH.png"
+      },
+      {
+        name: "LTC",
+        value: 121112.12,
+        logo: "/src/assets/images/LTC.png"
+      },
+    ]
+
   },
   color: {
     sec: "grey darken-3",
@@ -26,7 +39,7 @@ const state = {
   },
   trollbox: {
     chat: [{
-        avatar: ""/*Faker.image.image()*/,
+        avatar: "" /*Faker.image.image()*/ ,
         title: Faker.name.findName(),
         subtitle: Faker.lorem.sentence(),
       },
@@ -35,7 +48,7 @@ const state = {
         inset: true
       },
       {
-        avatar:""/*Faker.image.image()*/,
+        avatar: "" /*Faker.image.image()*/ ,
         title: Faker.name.findName(),
         subtitle: Faker.lorem.sentence(),
       },
@@ -44,7 +57,7 @@ const state = {
         inset: true
       },
       {
-        avatar:""/*Faker.image.image()*/,
+        avatar: "" /*Faker.image.image()*/ ,
         title: Faker.name.findName(),
         subtitle: Faker.lorem.sentence(),
       },
@@ -53,7 +66,7 @@ const state = {
         inset: true
       },
       {
-        avatar:""/*Faker.image.image()*/,
+        avatar: "" /*Faker.image.image()*/ ,
         title: Faker.name.findName(),
         subtitle: Faker.lorem.sentence(),
       },
@@ -62,7 +75,7 @@ const state = {
         inset: true
       },
       {
-        avatar: ""/*Faker.image.image()*/,
+        avatar: "" /*Faker.image.image()*/ ,
         title: Faker.name.findName(),
         subtitle: Faker.lorem.sentence(),
       },
@@ -70,21 +83,17 @@ const state = {
   },
   news: {
     feed: [{
-      src: ""/*Faker.image.image()*/,
-      title: "Top 5 des techniques pour ",
-      link: "www.google.com"
-    }, {
-      src: ""/*Faker.image.image()*/,
+      src: "" /*Faker.image.image()*/ ,
       title: "Vous ne le croiyez jamais",
-      link: ""
+      link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     }, {
-      src:""/*Faker.image.image()*/,
+      src: "" /*Faker.image.image()*/ ,
       title: "Les médecins le deteste",
-      link: ""
+      link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     }, {
-      src: ""/*Faker.image.image()*/,
+      src: "" /*Faker.image.image()*/ ,
       title: "Il est devenu riche facilement",
-      link: ""
+      link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     }, ]
 
   }
