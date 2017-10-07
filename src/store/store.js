@@ -28,6 +28,10 @@ const state = {
         name: "LTC",
         value: 121112.12,
         logo: "/src/assets/images/LTC.png"
+      },{
+        name: "DSH",
+        value: 5454.12,
+        logo: "/src/assets/images/DSH.png"
       },
     ]
 
