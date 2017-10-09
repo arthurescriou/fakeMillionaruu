@@ -1,19 +1,27 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Faker from 'faker';
+import axios from 'axios';
+import profilParser from '../JsonParsers/profil.js';
+import conf from '../configurationBack.js';
 
 Vue.use(Vuex);
 
+const urlback = conf.urlback;
+
 const state = {
-  count: 0,
+    count: 0,
+    test: "test",
 
-
+  services: conf.services,
   profil: {
-    userName: Faker.internet.userName(),
-    name: Faker.name.findName(),
+    userName: "",
+    name: "",
     image: "" /*Faker.image.image()*/ ,
+    mail: "",
     connected: false,
     inscr: false,
+    passwordTyped: "",
     wallet: [{
         name: "BTC",
         value: 12.0125,
@@ -28,7 +36,7 @@ const state = {
         name: "LTC",
         value: 121112.12,
         logo: "/src/assets/images/LTC.png"
-      },{
+      }, {
         name: "DSH",
         value: 5454.12,
         logo: "/src/assets/images/DSH.png"
@@ -88,7 +96,7 @@ const state = {
   news: {
     feed: [{
       src: "" /*Faker.image.image()*/ ,
-      title: "Vous ne le croiyez jamais",
+      title: "Vuos ne le croiyez jamias",
       link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     }, {
       src: "" /*Faker.image.image()*/ ,
@@ -104,8 +112,21 @@ const state = {
 };
 
 const mutations = {
+
   connect: (state) => {
-    state.profil.connected = true;
+    state.test = profilParser.login(state.profil.userName, state.profil.passwordTyped);
+    axios.post(urlback+state.services.login, {
+        data: profilParser.login(state.profil.userName, state.profil.passwordTyped)
+      })
+      .then(function(response) {
+        console.log(response);
+        state.profil.connected = true;
+      })
+      .catch(function(error) {
+        console.log(error.message);
+      });
+
+    state.passwordTyped = "";
   },
   deconnect: (state) => {
     state.profil.connected = false;
@@ -115,7 +136,18 @@ const mutations = {
     state.profil.inscr = true;
   },
   inscription: (state) => {
-    state.profil.connected = true;
+    axios.post(urlback.inscription, {
+        data: profilParser.login(state.profil.userName, state.profil.passwordTyped)
+      })
+      .then(function(response) {
+        console.log(response);
+        state.profil.inscr = false;
+      })
+      .catch(function(error) {
+        console.log(error.message);
+      });
+
+    state.passwordTyped = "";
   }
 };
 

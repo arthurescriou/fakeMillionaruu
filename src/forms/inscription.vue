@@ -1,9 +1,8 @@
 <template>
 <v-form v-model="valid">
   <v-text-field label="Pseudo" v-model="name" :rules="nameRules" required></v-text-field>
-    <v-text-field label="Mail" v-model="email" :rules="emailRules" required></v-text-field>
-  <v-text-field label="password" v-model="password" :rules="passwordRules" required
-  type="password"></v-text-field>
+  <v-text-field label="Mail" v-model="email" :rules="emailRules" required></v-text-field>
+  <v-text-field label="password" v-model="password" :rules="passwordRules" required type="password"></v-text-field>
   <v-text-field label="password" v-model="passwordVerif" :rules="passwordVerifRules" required type="password"></v-text-field>
   <v-btn @click="submit()" v-bind:class="this.$store.state.color.sec" dark>submit</v-btn>
 </v-form>
@@ -27,16 +26,19 @@ export default {
       ],
       password: '',
       passwordRules: [
-        (v) => !!v || 'Entrer mot de passe' //TODO ajax
+        (v) => !!v || 'Entrer mot de passe' 
       ],
       passwordVerif: '',
       passwordVerifRules: [
-        (v) => v==this.password || 'Pas le même mot de passe' //TODO ajax
+        (v) => v == this.password || 'Pas le même mot de passe'
       ]
     }
   },
   methods: {
-    submit(){
+    submit() {
+      this.$store.state.profil.name = this.name;
+      this.$store.state.profil.email = this.email;
+      this.$store.state.profil.passwordTyped = this.password;
       this.$store.commit("inscription");
     }
   }
