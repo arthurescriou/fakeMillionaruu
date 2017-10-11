@@ -10,8 +10,8 @@ Vue.use(Vuex);
 const urlback = conf.urlback;
 
 const state = {
-    count: 0,
-    test: "test",
+  count: 0,
+  test: "test",
 
   services: conf.services,
   profil: {
@@ -42,7 +42,6 @@ const state = {
         logo: "/src/assets/images/DSH.png"
       },
     ]
-
   },
   color: {
     sec: "grey darken-3",
@@ -115,12 +114,16 @@ const mutations = {
 
   connect: (state) => {
     state.test = profilParser.login(state.profil.userName, state.profil.passwordTyped);
-    axios.post(urlback+state.services.login, {
-        data: profilParser.login(state.profil.userName, state.profil.passwordTyped)
-      })
+    axios.get(urlback + state.services.login,
+      profilParser.login(state.profil.userName, state.profil.passwordTyped))
       .then(function(response) {
         console.log(response);
-        state.profil.connected = true;
+        if (response.data.err)
+          if (response.data.err == 200)
+            state.profil.connected = true;
+          else {
+
+          }
       })
       .catch(function(error) {
         console.log(error.message);
@@ -136,9 +139,10 @@ const mutations = {
     state.profil.inscr = true;
   },
   inscription: (state) => {
-    axios.post(urlback.inscription, {
-        data: profilParser.login(state.profil.userName, state.profil.passwordTyped)
+    axios.get(urlback + state.services.inscription, {
+        params: profilParser.inscription(state.profil.userName, state.profil.passwordTyped, state.profil.mail)
       })
+
       .then(function(response) {
         console.log(response);
         state.profil.inscr = false;

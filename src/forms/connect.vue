@@ -16,7 +16,7 @@ export default {
     return {
       store: Store,
       valid: false,
-      name: '',
+      name: 'arthur',
       nameRules: [
         (v) => !!v || 'Entrer nom d\'utilisateur'
       ],
@@ -25,9 +25,10 @@ export default {
         (v) => !!v || 'E-mail is required',
         (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
       ],
-      password: '',
+      password: 'pass',
       passwordRules: [
-        (v) => !!v || 'Entrer mot de passe' //TODO ajax
+        (v) => !!v || 'Entrer mot de passe'/*,
+        (v) =>*/
       ]
     }
   },
