@@ -26,7 +26,7 @@ export default {
       ],
       password: '',
       passwordRules: [
-        (v) => !!v || 'Entrer mot de passe' 
+        (v) => !!v || 'Entrer mot de passe'
       ],
       passwordVerif: '',
       passwordVerifRules: [
@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     submit() {
-      this.$store.state.profil.name = this.name;
+      this.$store.state.profil.userName = this.name;
       this.$store.state.profil.email = this.email;
       this.$store.state.profil.passwordTyped = this.password;
       this.$store.commit("inscription");

@@ -5,7 +5,7 @@
 
       <v-layout row wrap>
 
-        <v-flex lg2 xl2>
+        <v-flex lg3 xl2>
           <v-navigation-drawer permanent light>
             <v-toolbar flat>
               <v-list>
@@ -16,17 +16,14 @@
 
         </v-flex>
 
-        <v-flex lg8 xl8>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          <br>
-          <h1>{{$store.state.test}}</h1>
+        <v-flex lg12 xl8>
+
           <Chart></Chart>
           <Order></Order>
           <Story></Story>
         </v-flex>
 
-        <v-flex lg2 xl2>
+        <v-flex lg3 xl2>
           <v-navigation-drawer permanent light right>
             <v-toolbar flat>
               <v-list>

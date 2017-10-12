@@ -40,6 +40,14 @@ const state = {
         name: "DSH",
         value: 5454.12,
         logo: "/src/assets/images/DSH.png"
+      }, {
+        name: "XRP",
+        value: 5454.12,
+        logo: "/src/assets/images/XRP.png"
+      }, {
+        name: "BCH",
+        value: 5454.12,
+        logo: "/src/assets/images/BCH.png"
       },
     ]
   },
@@ -47,6 +55,37 @@ const state = {
     sec: "grey darken-3",
     prim: "grey",
     third: "grey lighten-3"
+  },
+  order: {
+    currencies: [{
+        name: "Ethereum",
+        trig: "ETH"
+      },
+      {
+        name: "Bitcoin Cash",
+        trig: "BCH"
+      },
+      {
+        name: "Ripple",
+        trig: "XRP"
+      },
+      {
+        name: "Lite Coin",
+        trig: "LTC"
+      },
+      {
+        trig: "DSH",
+        name: "Dash Coin"
+      }
+    ],
+    time: [
+      'all', 'year', 'month', 'week', 'day', 'hour'
+    ],
+    candlesticks: [
+      '5 min', '15 min', '30 min', '2 h', '4 h', '1 d'
+    ]
+
+
   },
   trollbox: {
     chat: [{
@@ -115,7 +154,7 @@ const mutations = {
   connect: (state) => {
     state.test = profilParser.login(state.profil.userName, state.profil.passwordTyped);
     axios.get(urlback + state.services.login,
-      profilParser.login(state.profil.userName, state.profil.passwordTyped))
+        profilParser.login(state.profil.userName, state.profil.passwordTyped))
       .then(function(response) {
         console.log(response);
         if (response.data.err)
@@ -139,9 +178,9 @@ const mutations = {
     state.profil.inscr = true;
   },
   inscription: (state) => {
-    axios.get(urlback + state.services.inscription, {
-        params: profilParser.inscription(state.profil.userName, state.profil.passwordTyped, state.profil.mail)
-      })
+    axios.get(urlback + state.services.inscription,
+        profilParser.inscription(state.profil.userName, state.profil.passwordTyped, state.profil.mail)
+      )
 
       .then(function(response) {
         console.log(response);
