@@ -1,13 +1,15 @@
 <template lang="html">
   <v-container>
     <v-card>
-      <v-layout>
-      <v-flex>
+
+        <v-layout>
+          <v-flex>
    <v-card-title primary-title>
              <div>
                <div class="headline">{{currency}}</div>
                <span class="grey--text">{{timePeriod}}</span>
              </div>
+
    </v-card-title>
    <v-select label="Currency"
   v-model="currency"
@@ -42,7 +44,8 @@ export default {
       currency: "Ethereum",
       timePeriod: "week",
       items: this.getCurrencies(),
-      candlesticks : "15 min"
+      candlesticks: "15 min",
+      img: "/src/assets/images/BTC.png",
     };
   },
   methods: {
@@ -58,8 +61,14 @@ export default {
         if (this.$store.state.order.currencies[i].name == this.currenciy)
           return this.$store.state.order.currencies[i].trig;
       }
-    }
+    },
+    getImgCc() {
+      for (var i = 0; i < this.$store.state.profil.wallet.length; i++) {
+        if (this.$store.state.profil.wallet[i].name == this.nameToTrig())
+          return this.$store.state.profil.wallet[i].logo;
 
+      }
+    }
   }
 }
 </script>

@@ -17,7 +17,6 @@
         </v-flex>
 
         <v-flex lg12 xl8>
-
           <Chart></Chart>
           <Order></Order>
           <Story></Story>

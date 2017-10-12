@@ -15,9 +15,10 @@ const state = {
 
   services: conf.services,
   profil: {
+    session: "",
     userName: "",
     name: "",
-    image: "" /*Faker.image.image()*/ ,
+    image: "/src/assets/images/BTC.png" /*Faker.image.image()*/ ,
     mail: "",
     connected: false,
     inscr: false,
@@ -38,11 +39,11 @@ const state = {
         logo: "/src/assets/images/LTC.png"
       }, {
         name: "DSH",
-        value: 5454.12,
+        value: 111.1452,
         logo: "/src/assets/images/DSH.png"
       }, {
         name: "XRP",
-        value: 5454.12,
+        value: 0.12,
         logo: "/src/assets/images/XRP.png"
       }, {
         name: "BCH",
@@ -158,11 +159,15 @@ const mutations = {
       .then(function(response) {
         console.log(response);
         if (response.data.err)
-          if (response.data.err == 200)
-            state.profil.connected = true;
-          else {
-
+          if (response.data.err == 200) {
+            if (response.data.session) {
+              state.profil.connected = true;
+              state.profil.session = response.data.session;
+            }
           }
+        else {
+
+        }
       })
       .catch(function(error) {
         console.log(error.message);
@@ -192,6 +197,7 @@ const mutations = {
 
     state.passwordTyped = "";
   }
+
 };
 
 export default new Vuex.Store({
