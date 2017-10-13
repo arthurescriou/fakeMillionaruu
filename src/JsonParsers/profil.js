@@ -15,5 +15,12 @@ module.exports = {
         password: password
       }
     };
+  },
+  logout: function login(id) {
+    return {
+      params: {
+        id: id
+      }
+    };
   }
 }

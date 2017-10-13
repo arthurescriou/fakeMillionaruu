@@ -176,8 +176,23 @@ const mutations = {
     state.passwordTyped = "";
   },
   deconnect: (state) => {
-    state.profil.connected = false;
-    state.profil.inscr = false;
+    axios.get(urlback + state.services.logout,
+        profilParser.logout(0))
+      .then(function(response) {
+        console.log(response);
+        if (response.data.err)
+          if (response.data.err == 200) {
+            state.profil.connected = false;
+            state.profil.inscr = false;
+
+          }
+        else {
+          state.profil.connected = false;
+        }
+      })
+      .catch(function(error) {
+        console.log(error.message);
+      });
   },
   toInscription: (state) => {
     state.profil.inscr = true;

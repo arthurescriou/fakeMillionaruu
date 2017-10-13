@@ -3,5 +3,6 @@ module.exports = {
   services: {
     login: "/login",
     inscription: "/inscription",
+    logout: "/logout",
   }
 }
