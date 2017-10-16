@@ -1,6 +1,6 @@
 <template lang="html">
 <div>
-   {{getNews()}}
+  <div @change.once="getNews"></div>
   <div v-for="item in $store.state.news.feed">
     <NewsCard :src="item.urlToImage"
               :title="item.title"
