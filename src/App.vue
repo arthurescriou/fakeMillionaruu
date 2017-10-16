@@ -52,7 +52,9 @@ import Story from './components/TradeHistory.vue';
 export default {
   store: Store,
   data() {
-    return {};
+    return {
+      rettt: "ICI",
+    };
   },
   methods: {
 

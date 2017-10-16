@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import Faker from 'faker';
 import axios from 'axios';
 import profilParser from '../JsonParsers/profil.js';
+import chatParser from '../JsonParsers/chat.js';
 import conf from '../configurationBack.js';
 
 Vue.use(Vuex);
@@ -85,10 +86,9 @@ const state = {
     candlesticks: [
       '5 min', '15 min', '30 min', '2 h', '4 h', '1 d'
     ]
-
-
   },
   trollbox: {
+    test: "",
     chat: [{
         avatar: "" /*Faker.image.image()*/ ,
         title: Faker.name.findName(),

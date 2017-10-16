@@ -9,6 +9,20 @@
     <link rel="icon" type="image/png" href="logo.png" sizes="32x32">
   </head>
   <body>
+
+<script src="https://www.gstatic.com/firebasejs/4.5.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBZAx5ZehWau9B6z3RCddvMzDCTVjEvlkQ",
+    authDomain: "fakemillionaruuuu-chat.firebaseapp.com",
+    databaseURL: "https://fakemillionaruuuu-chat.firebaseio.com",
+    projectId: "fakemillionaruuuu-chat",
+    storageBucket: "fakemillionaruuuu-chat.appspot.com",
+    messagingSenderId: "1075476856144"
+  };
+  firebase.initializeApp(config);
+</script>
     <div id="app"></div>
     <script src="dist/build.js"></script>
   </body>

@@ -1,5 +1,6 @@
 <template lang="html">
   <v-layout row><v-card>
+    {{fire()}}
      <v-toolbar v-bind:class="$store.state.color.sec" dark>
        <v-toolbar-title>TrollBox</v-toolbar-title>
      </v-toolbar>
@@ -32,7 +33,7 @@
 <script>
 import Store from '../store/store.js';
 import MessageChat from '../tools/chatMessage.vue';
-
+import chatParser from '../JsonParsers/chat.js';
 
 export default {
   store: Store,
@@ -43,25 +44,24 @@ export default {
     }
   },
   methods: {
-    submit(){
-      this.$store.state.trollbox.chat.push({
-        divider: true,
-        inset: true
+    submit() {
+      var name = this.$store.state.profil.userName.localeCompare("") == 0 ? "Anonymous" : this.$store.state.profil.userName;
+      firebase.database().ref('chats/').push({
+        user: name,
+        msg: this.msg,
+        date: Date.now()
       });
-      this.$store.state.trollbox.chat.push({  avatar: this.$store.state.profil.image,
-        title: this.$store.state.profil.userName,
-        subtitle: this.msg
-      });
-      this.$store.state.trollbox.chat.reverse();
-      this.$store.state.trollbox.chat.pop();
-      this.$store.state.trollbox.chat.pop();
-      this.$store.state.trollbox.chat.reverse();
-    }
-  },
-  components: {
-    MessageChat: MessageChat
-  }
 
+    },
+    fire() {
+      firebase.database().ref('chats/').once('value').then(function(snapshot) {
+        Store.state.trollbox.chat = chatParser.parseChat(snapshot.val());
+      })
+    },
+    components: {
+      MessageChat: MessageChat
+    }
+  }
 }
 </script>
 
