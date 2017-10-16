@@ -221,6 +221,8 @@ export default {
 							  tmp.high,
               ])
             }
+            console.log(categoryData)
+            console.console.log(values);
             this.data0 = {
               categoryData: categoryData,
               values: values
