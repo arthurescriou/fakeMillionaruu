@@ -4,5 +4,6 @@ module.exports = {
     login: "/login",
     inscription: "/inscription",
     logout: "/logout",
+    news: "/requestNews",
   }
 }

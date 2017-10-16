@@ -1,9 +1,14 @@
 module.exports = {
   parseChat: function(Json) {
+    if(Json==null)return [];
     var ret = [];
+    var start = 0;
+    var size = Object.keys(Json).length;
+    if(size>5){
+      start = size - 5;
+    }
 
-
-  for (var i = 0; i < Object.keys(Json).length; i++) {
+  for (var i = start; i < size; i++) {
     Json[Object.keys(Json)[i]].user
     ret.push({
       avatar: "",

@@ -19,7 +19,7 @@
             </v-list-tile>
      </template>
   </v-list>
-  <v-text-field label="message" v-model="msg" @submit=""></v-text-field>
+  <v-text-field label="message" v-model="msg" @submit="submit()"></v-text-field>
   <v-btn @click="submit()" v-bind:class="this.$store.state.color.sec" dark>submit</v-btn>
   </v-card>
   </v-layout>
@@ -51,7 +51,7 @@ export default {
         msg: this.msg,
         date: Date.now()
       });
-
+      this.msg="";
     },
     fire() {
       firebase.database().ref('chats/').once('value').then(function(snapshot) {

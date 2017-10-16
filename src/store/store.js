@@ -13,7 +13,7 @@ const urlback = conf.urlback;
 const state = {
   count: 0,
   test: "test",
-
+  urlback: urlback,
   services: conf.services,
   profil: {
     session: "",
@@ -134,17 +134,17 @@ const state = {
   },
   news: {
     feed: [{
-      src: "" /*Faker.image.image()*/ ,
-      title: "Vuos ne le croiyez jamias",
-      link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      urlToImage: "" /*Faker.image.image()*/ ,
+      title: "Erreur",
+      url: ""
     }, {
-      src: "" /*Faker.image.image()*/ ,
-      title: "Les médecins le deteste",
-      link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      urlToImage: "" /*Faker.image.image()*/ ,
+      title: "Erreur",
+      url: ""
     }, {
-      src: "" /*Faker.image.image()*/ ,
-      title: "Il est devenu riche facilement",
-      link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+      urlToImage: "" /*Faker.image.image()*/ ,
+      title: "Erreur",
+      url: ""
     }, ]
 
   }
