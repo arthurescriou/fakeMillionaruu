@@ -5,5 +5,6 @@ module.exports = {
     inscription: "/inscription",
     logout: "/logout",
     news: "/requestNews",
+    chart : "/getChartData"
   }
 }
