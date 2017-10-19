@@ -1,6 +1,5 @@
 <template lang="html">
   <v-container>
-    {{getChartData("BTC_ETH","FIVE_MINUTES",1507811223,1507814823)}}
     <v-card>
         <v-layout>
           <v-flex>
@@ -15,7 +14,7 @@
    <v-select label="Currency"
   v-model="currency"
   :items="items"
-  @change="">
+  @change="dataLoaded = false">
  </v-select>
 </v-container>
    </v-flex>
@@ -24,19 +23,21 @@
     <v-select label="Candlesticks"
    v-model="candlesticks"
    :items="this.$store.state.order.candlesticks"
-   @change="">
+   @change="dataLoaded = false">
   </v-select>
   <v-select label="Time"
  v-model="timePeriod"
  :items="this.$store.state.order.time"
- @change="">
+ @change="dataLoaded = false">
 </v-select>
   </v-container>
 </v-flex>
 </v-layout>
  </v-card>
  <div class="echarts">
+     {{getChartData(getPairCurrency(currency),"FIVE_MINUTES",1507811223,1507814823)}}
    <eChart :option="option"></eChart>
+   {{this.$store.state.charts}}
  </div>
 </v-container>
 </template>
@@ -45,17 +46,18 @@
 import IEcharts from 'vue-echarts-v3/src/full.vue'
 import parseChart from '../JsonParsers/chart.js'
 import axios from 'axios';
+import Store from '../store/store.js';
 
 
 export default {
   data() {
     return {
+      dataLoaded: false,
       currency: "Ethereum",
       timePeriod: "week",
       items: this.getCurrencies(),
       candlesticks: "15 min",
       img: "/src/assets/images/BTC.png",
-      data0: [],
       option: {
         title: {
           text: 'un truc',
@@ -67,9 +69,6 @@ export default {
             type: 'cross'
           }
         },
-        legend: {
-          data: ['Une legend']
-        },
         grid: {
           left: '10%',
           right: '10%',
@@ -77,11 +76,15 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: data0.categoryData,
+          data: this.$store.state.charts.categoryData,
           scale: true,
           boundaryGap: false,
-          axisLine: { onZero: false },
-          splitLine: { show: false },
+          axisLine: {
+            onZero: false
+          },
+          splitLine: {
+            show: false
+          },
           splitNumber: 20,
           min: 'dataMin',
           max: 'dataMax'
@@ -92,105 +95,40 @@ export default {
             show: true
           }
         },
-        dataZoom: [
-        {
-          type: 'inside',
-          start: 50,
-          end: 100
-        },
-        {
-          show: true,
-          type: 'slider',
-          y: '90%',
-          start: 50,
-          end: 100
-        }
+        dataZoom: [{
+            type: 'inside',
+            start: 0,
+            end: 100
+          },
+          {
+            show: true,
+            type: 'slider',
+            y: '90%',
+            start: 0,
+            end: 100
+          }
         ],
-        series: [
-        {
+        series: [{
           name: 'ehzafera',
           type: 'candlestick',
-          data: data0.values,
+          data: this.$store.state.charts.values,
           markPoint: {
             label: {
               normal: {
-                formatter: function (param) {
+                formatter: function(param) {
                   return param != null ? Math.round(param.value) : ''
                 }
               }
             },
-            data: [
-            {
-              name: 'SA aussi',
-              coord: ['2013/5/31', 2300],
-              value: 2300,
-              itemStyle: {
-                normal: { color: 'rgb(41,60,85)' }
-              }
-            },
-            {
-              name: 'highest value',
-              type: 'max',
-              valueDim: 'highest'
-            },
-            {
-              name: 'lowest value',
-              type: 'min',
-              valueDim: 'lowest'
-            },
-            {
-              name: 'average value on close',
-              type: 'average',
-              valueDim: 'close'
-            }
-            ],
+
             tooltip: {
-              formatter: function (param) {
+              formatter: function(param) {
                 return param.name + '<br>' + (param.data.coord || '')
               }
             }
           },
-          markLine: {
-            symbol: ['none', 'none'],
-            data: [
-            [
-            {
-              name: 'from lowest to highest',
-              type: 'min',
-              valueDim: 'lowest',
-              symbol: 'circle',
-              symbolSize: 10,
-              label: {
-                normal: { show: false },
-                emphasis: { show: false }
-              }
-            },
-            {
-              type: 'max',
-              valueDim: 'highest',
-              symbol: 'circle',
-              symbolSize: 10,
-              label: {
-                normal: { show: false },
-                emphasis: { show: false }
-              }
-            }
-            ],
-            {
-              name: 'min line on close',
-              type: 'min',
-              valueDim: 'close'
-            },
-            {
-              name: 'max line on close',
-              type: 'max',
-              valueDim: 'close'
-            }
-            ]
-          }
-        }
-      ]
-    }
+        }]
+      }
     };
   },
   methods: {
@@ -201,50 +139,58 @@ export default {
       }
       return ret;
     },
-    getChartData(pair_currency, period, start, end){
-      axios.get(this.$store.state.urlback + this.$store.state.services.chart,
-      parseChart.requestChart(pair_currency, period, start, end)
-    )
-      .then(function(response) {
-        console.log(response);
-        if (response.data.err)
-          if (response.data.err == 200) {
-            var categoryData = [];
-            var values = [];
-            for (var i=0 ; i < response.length ; i++){
-              var tmp = response[i]
-              categoryData.push(new Date(tmp.date*1000))
-              values.push([
-                tmp.open,
-                tmp.close,
-                tmp.low,
-							  tmp.high,
-              ])
-            }
-            console.log(categoryData)
-            console.console.log(values);
-            this.data0 = {
-              categoryData: categoryData,
-              values: values
-            }
-          }
-        else {
+    getChartData(pair_currency, period, start, end) {
+      if (!this.dataLoaded) {
+        Store.state.charts.categoryData = [];
+        Store.state.charts.values = [];
+        axios.get(this.$store.state.urlback + this.$store.state.services.chart,
+            parseChart.requestChart(pair_currency, period, start, end)
+          )
+          .then(function(response) {
+            console.log(response);
+            if (response.status)
+              if (response.status == 200) {
+                for (var i = 0; i < response.data.length; i++) {
+                  var tmp = response.data[i]
+                  console.log(tmp)
+                  Store.state.charts.categoryData.push(new Date(tmp.date * 1000))
+                  Store.state.charts.values.push([
+                    tmp.open,
+                    tmp.close,
+                    tmp.low,
+                    tmp.high,
+                  ])
+                }
+              }
+            else {}
+          })
+          .catch(function(error) {
+            console.log(error.message);
+          });
+          this.dataLoaded = true;
+      }
+    },
+    getPairCurrency(current) {
+      for (var i = 0; i < this.$store.state.order.currencies.length; i++) {
+        var currency = this.$store.state.order.currencies[i]
+        if (current == currency.name) {
+          return "BTC_" + currency.trig
         }
-      })
-      .catch(function(error) {
-        console.log(error.message);
-      });
+      }
+    },
+    getPeriod(current) {
+
     }
   },
   components: {
-    eChart:  IEcharts,
+    eChart: IEcharts,
   }
 }
 </script>
 
 <style scoped>
-  .echarts {
-    width: 800px;
-    height: 400px;
-  }
+.echarts {
+  width: 800px;
+  height: 400px;
+}
 </style>

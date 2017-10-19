@@ -39,7 +39,7 @@ const state = {
         value: 121112.12,
         logo: "/src/assets/images/LTC.png"
       }, {
-        name: "DSH",
+        name: "DASH",
         value: 111.1452,
         logo: "/src/assets/images/DSH.png"
       }, {
@@ -72,12 +72,12 @@ const state = {
         trig: "XRP"
       },
       {
-        name: "Lite Coin",
+        name: "LiteCoin",
         trig: "LTC"
       },
       {
-        trig: "DSH",
-        name: "Dash Coin"
+        name: "Dash",
+        trig: "DASH",
       }
     ],
     time: [
@@ -147,7 +147,13 @@ const state = {
       url: ""
     }, ]
 
+  },
+  charts: {
+    categoryData: [],
+    values: [],
+
   }
+
 };
 
 const mutations = {
