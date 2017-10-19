@@ -1,5 +1,5 @@
 <template lang="html">
-  <v-container>
+  <v-container >
     <v-card>
         <v-layout>
           <v-flex>
@@ -34,10 +34,15 @@
 </v-flex>
 </v-layout>
  </v-card>
- <div class="echarts">
-     {{getChartData(getPairCurrency(currency),"FIVE_MINUTES",1507811223,1507814823)}}
-   <eChart :option="option"></eChart>
+ <!-- {{getChartData(getPairCurrency(currency),getCandle(),getStart(),getEnd())}} -->
+  {{getChartData(getPairCurrency(currency),getCandle(),1507811223,1507814823)}}
+ <div class="echarts" >
+   <eChart :option="getOption()"></eChart>
    {{this.$store.state.charts}}
+   <!-- {{option}} -->
+  {{getStart()}}
+  {{getEnd()}}
+  {{getCandle()}}
  </div>
 </v-container>
 </template>
@@ -48,7 +53,6 @@ import parseChart from '../JsonParsers/chart.js'
 import axios from 'axios';
 import Store from '../store/store.js';
 
-
 export default {
   data() {
     return {
@@ -58,7 +62,42 @@ export default {
       items: this.getCurrencies(),
       candlesticks: "15 min",
       img: "/src/assets/images/BTC.png",
-      option: {
+    };
+  },
+  methods: {
+    getCandle() {
+      if (this.candlesticks.localeCompare("5 min") == 0) {
+        return "FIVE_MINUTES";
+      } else if (this.candlesticks.localeCompare("15 min") == 0) {
+        return "FIFTEEN_MINUTES";
+      } else if (this.candlesticks.localeCompare("30 min") == 0) {
+        return "THIRTY_MINUTES";
+      } else if (this.candlesticks.localeCompare("2 h") == 0) {
+        return "TWO_HOURS";
+      } else if (this.candlesticks.localeCompare("4 h") == 0) {
+        return "FOUR_HOURS";
+      }
+      return 'ONE_DAY';
+    },
+    getEnd() {
+      return Date.now();
+    },
+    getStart() {
+      if (this.timePeriod.localeCompare("year") == 0) {
+        return Date.now() - 31556926;
+      } else if (this.timePeriod.localeCompare("month") == 0) {
+        return Date.now() - 2629743;
+      } else if (this.timePeriod.localeCompare("week") == 0) {
+        return Date.now() - 604800;
+      } else if (this.timePeriod.localeCompare("day") == 0) {
+        return Date.now() - 86400;
+      } else if (this.timePeriod.localeCompare("hour") == 0) {
+        return Date.now() - 3600;
+      }
+      return 0;
+    },
+    getOption() {
+      return {
         title: {
           text: 'un truc',
           left: 0
@@ -129,9 +168,7 @@ export default {
           },
         }]
       }
-    };
-  },
-  methods: {
+    },
     getCurrencies() {
       var ret = [];
       for (var i = 0; i < this.$store.state.order.currencies.length; i++) {
@@ -160,6 +197,10 @@ export default {
                     tmp.low,
                     tmp.high,
                   ])
+                  // if(this.option){
+                  //   this.option.series.data = Store.state.charts.values
+                  //   this.option.xAxis.data = Store.state.charts.categoryData
+                  // }
                 }
               }
             else {}
@@ -167,7 +208,7 @@ export default {
           .catch(function(error) {
             console.log(error.message);
           });
-          this.dataLoaded = true;
+        this.dataLoaded = true;
       }
     },
     getPairCurrency(current) {
