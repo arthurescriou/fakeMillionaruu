@@ -35,7 +35,7 @@
 </v-layout>
  </v-card>
  <!-- {{getChartData(getPairCurrency(currency),getCandle(),getStart(),getEnd())}} -->
-  {{getChartData(getPairCurrency(currency),getCandle(),1507811223,1507814823)}}
+  {{getChartData(getPairCurrency(currency),getCandle(),getStart(),getEnd())}}
  <div class="echarts" >
    <eChart :option="getOption()"></eChart>
    {{this.$store.state.charts}}
@@ -65,37 +65,6 @@ export default {
     };
   },
   methods: {
-    getCandle() {
-      if (this.candlesticks.localeCompare("5 min") == 0) {
-        return "FIVE_MINUTES";
-      } else if (this.candlesticks.localeCompare("15 min") == 0) {
-        return "FIFTEEN_MINUTES";
-      } else if (this.candlesticks.localeCompare("30 min") == 0) {
-        return "THIRTY_MINUTES";
-      } else if (this.candlesticks.localeCompare("2 h") == 0) {
-        return "TWO_HOURS";
-      } else if (this.candlesticks.localeCompare("4 h") == 0) {
-        return "FOUR_HOURS";
-      }
-      return 'ONE_DAY';
-    },
-    getEnd() {
-      return Date.now();
-    },
-    getStart() {
-      if (this.timePeriod.localeCompare("year") == 0) {
-        return Date.now() - 31556926;
-      } else if (this.timePeriod.localeCompare("month") == 0) {
-        return Date.now() - 2629743;
-      } else if (this.timePeriod.localeCompare("week") == 0) {
-        return Date.now() - 604800;
-      } else if (this.timePeriod.localeCompare("day") == 0) {
-        return Date.now() - 86400;
-      } else if (this.timePeriod.localeCompare("hour") == 0) {
-        return Date.now() - 3600;
-      }
-      return 0;
-    },
     getOption() {
       return {
         title: {
@@ -211,17 +180,46 @@ export default {
         this.dataLoaded = true;
       }
     },
-    getPairCurrency(current) {
+    getPairCurrency() {
       for (var i = 0; i < this.$store.state.order.currencies.length; i++) {
-        var currency = this.$store.state.order.currencies[i]
-        if (current == currency.name) {
-          return "BTC_" + currency.trig
+        var current = this.$store.state.order.currencies[i]
+        if (this.currency == current.name) {
+          return "BTC_" + current.trig
         }
       }
     },
-    getPeriod(current) {
+    getCandle() {
+      if (this.candlesticks.localeCompare("5 min") == 0) {
+        return "FIVE_MINUTES";
+      } else if (this.candlesticks.localeCompare("15 min") == 0) {
+        return "FIFTEEN_MINUTES";
+      } else if (this.candlesticks.localeCompare("30 min") == 0) {
+        return "THIRTY_MINUTES";
+      } else if (this.candlesticks.localeCompare("2 h") == 0) {
+        return "TWO_HOURS";
+      } else if (this.candlesticks.localeCompare("4 h") == 0) {
+        return "FOUR_HOURS";
+      }
+      return 'ONE_DAY';
+    },
+    getEnd() {
+      return Math.floor((new Date).getTime()/1000);
+    },
+    getStart() {
+      if (this.timePeriod.localeCompare("year") == 0) {
+        return Math.floor((new Date).getTime()/1000 - 31556926);
+      } else if (this.timePeriod.localeCompare("month") == 0) {
+        return Math.floor((new Date).getTime()/1000 - 2629743);
+      } else if (this.timePeriod.localeCompare("week") == 0) {
+        return Math.floor((new Date).getTime()/1000 - 604800);
+      } else if (this.timePeriod.localeCompare("day") == 0) {
+        return Math.floor((new Date).getTime()/1000 - 86400);
+      } else if (this.timePeriod.localeCompare("hour") == 0) {
+        return Math.floor((new Date).getTime()/1000 - 3600);
+      }
+      return 0;
+    },
 
-    }
   },
   components: {
     eChart: IEcharts,
