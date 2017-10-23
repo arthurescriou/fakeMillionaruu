@@ -34,15 +34,10 @@
 </v-flex>
 </v-layout>
  </v-card>
- <!-- {{getChartData(getPairCurrency(currency),getCandle(),getStart(),getEnd())}} -->
-  {{getChartData(getPairCurrency(currency),getCandle(),getStart(),getEnd())}}
  <div class="echarts" >
+   {{getChartData(getPairCurrency(currency),getCandle(),getStart(),getEnd())}}
    <eChart :option="getOption()"></eChart>
    {{this.$store.state.charts}}
-   <!-- {{option}} -->
-  {{getStart()}}
-  {{getEnd()}}
-  {{getCandle()}}
  </div>
 </v-container>
 </template>
@@ -66,6 +61,7 @@ export default {
   },
   methods: {
     getOption() {
+      console.log("option "+this.$store.state.charts.values);
       return {
         title: {
           text: 'un truc',
@@ -147,6 +143,7 @@ export default {
     },
     getChartData(pair_currency, period, start, end) {
       if (!this.dataLoaded) {
+        console.log("data "+period);
         Store.state.charts.categoryData = [];
         Store.state.charts.values = [];
         axios.get(this.$store.state.urlback + this.$store.state.services.chart,
@@ -158,7 +155,6 @@ export default {
               if (response.status == 200) {
                 for (var i = 0; i < response.data.length; i++) {
                   var tmp = response.data[i]
-                  console.log(tmp)
                   Store.state.charts.categoryData.push(new Date(tmp.date * 1000))
                   Store.state.charts.values.push([
                     tmp.open,
@@ -175,7 +171,7 @@ export default {
             else {}
           })
           .catch(function(error) {
-            console.log(error.message);
+            console.error(error.message);
           });
         this.dataLoaded = true;
       }

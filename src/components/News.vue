@@ -29,7 +29,7 @@ export default {
       this.dataLoaded = false
     },
     getNews() {
-      if (!this.dataLoaded)
+      if (!(this.dataLoaded))
         axios.get(this.$store.state.urlback + this.$store.state.services.news,
           newsParser.news(3))
         .then(function(response) {
