@@ -33,29 +33,27 @@ export default {
       var tab = this.$store.state.profil.wallet;
       for (var i = 0; i < tab.length; i++) {
         tab[i].value = resp[tab[i].name];
-        console.log(tab[i].name);
-        console.log(resp[tab[i].name]);
       }
     },
     getWallet() {
-      console.log(this.$store.state.profil.getWallet);
-      console.log((Date.now() - this.$store.state.profil.timeStampWallet) > 20000);
       if (this.$store.state.profil.session == "") return;
       if (this.$store.state.profil.getWallet) {
         if ((Date.now() - this.$store.state.profil.timeStampWallet) > 20000) {
           this.$store.state.profil.timeStampWallet = Date.now();
           axios.get(conf.urlback + conf.services.wallet,
-              walletParser.requestWallet(this.$store.state.profil.session))
+              walletParser.requestWallet(this.$store.state.profil.personId))
             .then(function(response) {
+              console.log("tamere");
               console.log(response);
-              if (response) {
-                parseRes(response)
-              } else {
+              this.$store.state.test = response.data;
+              // if (response) {
+                parseRes(response.data)
+              // } else {
 
-              }
+              // }
             })
             .catch(function(error) {
-              console.log(error.message);
+              console.error(error.message);
             });
         }
       }

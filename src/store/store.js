@@ -17,6 +17,7 @@ const state = {
   services: conf.services,
   profil: {
     session: "",
+    personId: 0,
     userName: "",
     name: "",
     image: "/src/assets/images/BTC.png" /*Faker.image.image()*/ ,
@@ -161,7 +162,6 @@ const state = {
 const mutations = {
 
   connect: (state) => {
-    state.test = profilParser.login(state.profil.userName, state.profil.passwordTyped);
     axios.get(urlback + state.services.login,
         profilParser.login(state.profil.userName, state.profil.passwordTyped))
       .then(function(response) {
@@ -171,6 +171,7 @@ const mutations = {
             if (response.data.session) {
               state.profil.connected = true;
               state.profil.session = response.data.session;
+              state.profil.personId = response.data.personId;
               state.profil.getWallet = true;
               state.profil.timeStampWallet = 0;
             }
@@ -195,6 +196,7 @@ const mutations = {
             state.profil.connected = false;
             state.profil.inscr = false;
             state.profil.session = "";
+            state.profil.personId = 0;
             state.profil.getWallet = false;
           }
         else {

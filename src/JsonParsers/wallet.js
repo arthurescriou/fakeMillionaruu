@@ -1,11 +1,9 @@
 module.exports = {
-  requestWallet: function (personID) {
+  requestWallet: function(personID) {
+    console.log(personID);
     return {
       params: {
-        pair_currency:pair_currency,
-        period:period,
-        start:start,
-        end:end
+        personId: personID,
       }
     };
   }

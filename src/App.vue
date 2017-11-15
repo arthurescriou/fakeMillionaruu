@@ -20,7 +20,7 @@
           <Chart></Chart>
           <Order></Order>
           <Story></Story>
-          {{$store.state.profil.wallet}}
+          {{$store.state.test}}
         </v-flex>
 
         <v-flex lg3 xl2>
