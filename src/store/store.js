@@ -26,32 +26,34 @@ const state = {
     passwordTyped: "",
     wallet: [{
         name: "BTC",
-        value: 12.0125,
+        value: 0.0,
         logo: "/src/assets/images/BTC.png"
       },
       {
         name: "ETH",
-        value: 1.46,
+        value: 0.0,
         logo: "/src/assets/images/ETH.png"
       },
       {
         name: "LTC",
-        value: 121112.12,
+        value: 0.0,
         logo: "/src/assets/images/LTC.png"
       }, {
         name: "DASH",
-        value: 111.1452,
+        value: 0.0,
         logo: "/src/assets/images/DSH.png"
       }, {
         name: "XRP",
-        value: 0.12,
+        value: 0.0,
         logo: "/src/assets/images/XRP.png"
       }, {
         name: "BCH",
-        value: 5454.12,
+        value: 0.0,
         logo: "/src/assets/images/BCH.png"
       },
-    ]
+    ],
+    getWallet: false,
+    timeStampWallet: Date.now(),
   },
   color: {
     sec: "grey darken-3",
@@ -169,6 +171,8 @@ const mutations = {
             if (response.data.session) {
               state.profil.connected = true;
               state.profil.session = response.data.session;
+              state.profil.getWallet = true;
+              state.profil.timeStampWallet = 0;
             }
           }
         else {
@@ -190,7 +194,8 @@ const mutations = {
           if (response.data.err == 200) {
             state.profil.connected = false;
             state.profil.inscr = false;
-
+            state.profil.session = "";
+            state.profil.getWallet = false;
           }
         else {
           state.profil.connected = false;

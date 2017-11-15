@@ -20,6 +20,7 @@
           <Chart></Chart>
           <Order></Order>
           <Story></Story>
+          {{$store.state.profil.wallet}}
         </v-flex>
 
         <v-flex lg3 xl2>

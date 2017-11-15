@@ -37,7 +37,6 @@
  <div class="echarts" >
    {{getChartData(getPairCurrency(currency),getCandle(),getStart(),getEnd())}}
    <eChart :option="getOption()"></eChart>
-   {{this.$store.state.charts}}
  </div>
 </v-container>
 </template>
@@ -55,7 +54,7 @@ export default {
       currency: "Ethereum",
       timePeriod: "week",
       items: this.getCurrencies(),
-      candlesticks: "15 min",
+      candlesticks: "1 d",
       img: "/src/assets/images/BTC.png",
     };
   },
@@ -64,7 +63,7 @@ export default {
       console.log("option "+this.$store.state.charts.values);
       return {
         title: {
-          text: 'un truc',
+          text: '',
           left: 0
         },
         tooltip: {
@@ -113,7 +112,7 @@ export default {
           }
         ],
         series: [{
-          name: 'ehzafera',
+          name: 'stick',
           type: 'candlestick',
           data: this.$store.state.charts.values,
           markPoint: {

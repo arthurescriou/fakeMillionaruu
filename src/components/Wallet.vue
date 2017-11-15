@@ -11,18 +11,57 @@
              <v-list-tile-content>
                <v-list-tile-title>{{ item.value }}</v-list-tile-title>
              </v-list-tile-content>
-             <!-- <v-list-tile-action>
-               <v-btn icon ripple>
-                 <v-icon class="grey--text text--lighten-1">info</v-icon>
-               </v-btn>
-             </v-list-tile-action> -->
   </v-list-tile>
     </v-list>
+    {{getWallet()}}
   </v-container>
 </template>
 
 <script>
-export default {}
+import conf from '../configurationBack.js';
+import walletParser from '../JsonParsers/wallet.js';
+import Store from '../store/store.js';
+import axios from 'axios';
+
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    parseRes(resp) {
+      console.log("ACTUALISATION");
+      var tab = this.$store.state.profil.wallet;
+      for (var i = 0; i < tab.length; i++) {
+        tab[i].value = resp[tab[i].name];
+        console.log(tab[i].name);
+        console.log(resp[tab[i].name]);
+      }
+    },
+    getWallet() {
+      console.log(this.$store.state.profil.getWallet);
+      console.log((Date.now() - this.$store.state.profil.timeStampWallet) > 20000);
+      if (this.$store.state.profil.session == "") return;
+      if (this.$store.state.profil.getWallet) {
+        if ((Date.now() - this.$store.state.profil.timeStampWallet) > 20000) {
+          this.$store.state.profil.timeStampWallet = Date.now();
+          axios.get(conf.urlback + conf.services.wallet,
+              walletParser.requestWallet(this.$store.state.profil.session))
+            .then(function(response) {
+              console.log(response);
+              if (response) {
+                parseRes(response)
+              } else {
+
+              }
+            })
+            .catch(function(error) {
+              console.log(error.message);
+            });
+        }
+      }
+    }
+  },
+}
 </script>
 
 <style lang="css">
