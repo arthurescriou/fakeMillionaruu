@@ -6,7 +6,7 @@ import Store from './store/store.js';
 import axios from 'axios';
 
 const axiosConfig = {
-	timeout: 30000,
+  timeout: 30000,
 };
 
 Vue.prototype.$axios = axios.create(axiosConfig);

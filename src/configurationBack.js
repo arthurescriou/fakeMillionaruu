@@ -6,6 +6,8 @@ module.exports = {
     logout: "/logout",
     news: "/requestNews",
     chart : "/getChartData",
-    wallet: "/getWallet"
+    wallet: "/getWallet",
+    tradeHistory : "/showtrades",
+    addOrder : "/addOrder"
   }
 }
