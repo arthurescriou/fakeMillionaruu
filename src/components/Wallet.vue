@@ -28,13 +28,6 @@ export default {
     return {};
   },
   methods: {
-    parseRes(resp) {
-      console.log("ACTUALISATION");
-      var tab = this.$store.state.profil.wallet;
-      for (var i = 0; i < tab.length; i++) {
-        tab[i].value = resp[tab[i].name];
-      }
-    },
     getWallet() {
       if (this.$store.state.profil.session == "") return;
       if (this.$store.state.profil.getWallet) {
@@ -43,14 +36,11 @@ export default {
           axios.get(conf.urlback + conf.services.wallet,
               walletParser.requestWallet(this.$store.state.profil.personId))
             .then(function(response) {
-              console.log("tamere");
-              console.log(response);
-              this.$store.state.test = response.data;
-              // if (response) {
-                parseRes(response.data)
-              // } else {
-
-              // }
+              var resp = response.data;
+              var tab = Store.state.profil.wallet;
+              for (var i = 0; i < tab.length; i++) {
+                tab[i].value = resp[tab[i].name];
+              }
             })
             .catch(function(error) {
               console.error(error.message);

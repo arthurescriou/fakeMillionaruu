@@ -112,6 +112,10 @@
 </template>
 
 <script>
+import conf from '../configurationBack.js';
+import parseOrder from '../JsonParsers/tradeOrder.js';
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -144,6 +148,27 @@ export default {
       return ret;
     },
     submitOrder(buy) {
+      var currency;
+      var price;
+      var quantity;
+      if (buy) {
+        currency = this.currencyBuy;
+        price = this.priceBuy;
+        quantity = this.amountBuy;
+      } else {
+        currency = this.currencySell;
+        price = this.priceSell;
+        quantity = this.amountSell;
+      }
+      axios.get(conf.urlback + conf.services.addOrder,
+          parseOrder.addOrder(buy, this.$store.state.profil.personId, quantity, price, currency)
+        ).then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error.message);
+        });
+
 
     }
   }

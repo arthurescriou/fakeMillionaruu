@@ -187,17 +187,17 @@ const mutations = {
     state.passwordTyped = "";
   },
   deconnect: (state) => {
+    state.profil.connected = false;
+    sstate.profil.getWallet = false;
+    state.profil.inscr = false;
     axios.get(urlback + state.services.logout,
         profilParser.logout(0))
       .then(function(response) {
         console.log(response);
         if (response.data.err)
           if (response.data.err == 200) {
-            state.profil.connected = false;
-            state.profil.inscr = false;
             state.profil.session = "";
             state.profil.personId = 0;
-            state.profil.getWallet = false;
           }
         else {
           state.profil.connected = false;
@@ -213,9 +213,7 @@ const mutations = {
   inscription: (state) => {
     axios.get(urlback + state.services.inscription,
         profilParser.inscription(state.profil.userName, state.profil.passwordTyped, state.profil.mail)
-      )
-
-      .then(function(response) {
+      ).then(function(response) {
         console.log(response);
         state.profil.inscr = false;
       })
