@@ -132,6 +132,14 @@ export default {
     };
   },
   methods: {
+    getCurrency(currency) {
+      for (var i = 0; i < this.$store.state.order.currencies.length; i++) {
+        var current = this.$store.state.order.currencies[i]
+        if (currency == current.name) {
+          return current.trig
+        }
+      }
+    },
     getImg(currency) {
       for (var i = 0; i < this.$store.state.order.currencies.length; i++) {
         var current = this.$store.state.order.currencies[i]
@@ -152,11 +160,11 @@ export default {
       var price;
       var quantity;
       if (buy) {
-        currency = this.currencyBuy;
+        currency = this.getCurrency(this.currencyBuy);
         price = this.priceBuy;
         quantity = this.amountBuy;
       } else {
-        currency = this.currencySell;
+        currency = this.getCurrency(this.currencySell);
         price = this.priceSell;
         quantity = this.amountSell;
       }
