@@ -42,7 +42,7 @@ const state = {
       }, {
         name: "DASH",
         value: 0.0,
-        logo: "/src/assets/images/DSH.png"
+        logo: "/src/assets/images/DASH.png"
       }, {
         name: "XRP",
         value: 0.0,

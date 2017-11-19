@@ -18,7 +18,7 @@
 
         <v-flex lg12 xl8>
           <Chart></Chart>
-          <!-- <Order></Order> -->
+          <Order></Order>
           <Story></Story>
           {{$store.state.test}}
         </v-flex>

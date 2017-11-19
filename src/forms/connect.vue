@@ -2,8 +2,8 @@
 <v-form v-model="valid" dark>
   <v-text-field label="Name" v-model="name" :rules="nameRules" required></v-text-field>
   <v-text-field type="password" label="password" v-model="password" :rules="passwordRules" required></v-text-field>
-  <v-btn @click="submit()" v-bind:class="this.$store.state.color.sec"> envoyer</v-btn>
-  <v-btn @click="toInscription()" v-bind:class="this.$store.state.color.sec">inscription</v-btn>
+  <v-btn @click="submit()" v-bind:class="this.$store.state.color.sec" dark> envoyer</v-btn>
+  <v-btn @click="toInscription()" v-bind:class="this.$store.state.color.sec" dark>inscription</v-btn>
 </v-form>
 </template>
 
